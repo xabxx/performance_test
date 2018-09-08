@@ -44,35 +44,35 @@ std::shared_ptr<rclcpp::Node> ResourceManager::ros2_node() const
   return rclcpp::Node::make_shared("performance_test" + rand_str, "", m_ec.use_ros_shm());
 }
 
-eprosima::fastrtps::Participant * ResourceManager::fastrtps_participant() const
-{
-  std::lock_guard<std::mutex> lock(m_global_mutex);
-
-  eprosima::fastrtps::Participant * result = nullptr;
-
-  eprosima::fastrtps::ParticipantAttributes PParam;
-  PParam.rtps.defaultSendPort = 11511;
-  PParam.rtps.use_IP6_to_send = true;
-  PParam.rtps.sendSocketBufferSize = 1048576;
-  PParam.rtps.listenSocketBufferSize = 4194304;
-  PParam.rtps.builtin.use_SIMPLE_RTPSParticipantDiscoveryProtocol = true;
-  PParam.rtps.builtin.use_SIMPLE_EndpointDiscoveryProtocol = true;
-  PParam.rtps.builtin.m_simpleEDP.use_PublicationReaderANDSubscriptionWriter = true;
-  PParam.rtps.builtin.m_simpleEDP.use_PublicationWriterANDSubscriptionReader = true;
-  PParam.rtps.builtin.domainId = m_ec.dds_domain_id();
-  PParam.rtps.builtin.leaseDuration = eprosima::fastrtps::rtps::c_TimeInfinite;
-  PParam.rtps.setName("performance_test_fastRTPS");
-
-  if (!m_ec.use_single_participant()) {
-    result = eprosima::fastrtps::Domain::createParticipant(PParam);
-  } else {
-    if (!m_fastrtps_participant) {
-      m_fastrtps_participant = eprosima::fastrtps::Domain::createParticipant(PParam);
-    }
-    result = m_fastrtps_participant;
-  }
-  return result;
-}
+//eprosima::fastrtps::Participant * ResourceManager::fastrtps_participant() const
+//{
+//  std::lock_guard<std::mutex> lock(m_global_mutex);
+//
+//  eprosima::fastrtps::Participant * result = nullptr;
+//
+//  eprosima::fastrtps::ParticipantAttributes PParam;
+//  PParam.rtps.defaultSendPort = 11511;
+//  PParam.rtps.use_IP6_to_send = true;
+//  PParam.rtps.sendSocketBufferSize = 1048576;
+//  PParam.rtps.listenSocketBufferSize = 4194304;
+//  PParam.rtps.builtin.use_SIMPLE_RTPSParticipantDiscoveryProtocol = true;
+//  PParam.rtps.builtin.use_SIMPLE_EndpointDiscoveryProtocol = true;
+//  PParam.rtps.builtin.m_simpleEDP.use_PublicationReaderANDSubscriptionWriter = true;
+//  PParam.rtps.builtin.m_simpleEDP.use_PublicationWriterANDSubscriptionReader = true;
+//  PParam.rtps.builtin.domainId = m_ec.dds_domain_id();
+//  PParam.rtps.builtin.leaseDuration = eprosima::fastrtps::rtps::c_TimeInfinite;
+//  PParam.rtps.setName("performance_test_fastRTPS");
+//
+//  if (!m_ec.use_single_participant()) {
+//    result = eprosima::fastrtps::Domain::createParticipant(PParam);
+//  } else {
+//    if (!m_fastrtps_participant) {
+//      m_fastrtps_participant = eprosima::fastrtps::Domain::createParticipant(PParam);
+//    }
+//    result = m_fastrtps_participant;
+//  }
+//  return result;
+//}
 #ifdef CONNEXT_DDS_MICRO_ENABLED
 DDSDomainParticipant * ResourceManager::connext_DDS_micro_participant() const
 {

@@ -20,7 +20,7 @@
 #include <memory>
 
 #include "data_runner.hpp"
-#include "../communication_abstractions/fast_rtps_communicator.hpp"
+//#include "../communication_abstractions/fast_rtps_communicator.hpp"
 #include "../communication_abstractions/ros2_callback_communicator.hpp"
 #ifdef CONNEXT_DDS_MICRO_ENABLED
 #include "../communication_abstractions/connext_dds_micro_communicator.hpp"
@@ -46,7 +46,8 @@ std::shared_ptr<DataRunnerBase> DataRunnerFactory::get(
 // Using compiler defines to be able to use ROS2 and FASTRTP together.
 #ifdef PERFORMANCE_TEST_USE_FASTRTPS
         if (com_mean == CommunicationMean::FASTRTPS) {
-          ptr = std::make_shared<DataRunner<FastRTPSCommunicator<T>>>(run_type);
+          //ptr = std::make_shared<DataRunner<FastRTPSCommunicator<T>>>(run_type);
+          throw std::runtime_error("FastRTPS disabled");
         }
 #endif
 #ifdef PERFORMANCE_TEST_USE_ROS2

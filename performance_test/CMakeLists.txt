@@ -54,7 +54,7 @@ endif()
 
 ament_export_include_directories(include)
 
-add_subdirectory(src/idlgen/fast_rtps)
+#add_subdirectory(src/idlgen/fast_rtps)
 # This is a workaround for broken include paths on some systems.
 include_directories(${FastRTPS_INCLUDE_DIR}/fastrtps/include ${fastcdr_INCLUDE_DIR})
 include_directories(include ${FAST_RTPS_IDL_INCLUDE_DIR} ${osrf_testing_tools_cpp_INCLUDE_DIR})
@@ -120,7 +120,7 @@ add_executable(${EXE_NAME}
     src/experiment_configuration/topics.hpp
     src/data_running/data_runner_base.hpp
     src/data_running/data_runner.hpp
-    src/communication_abstractions/fast_rtps_communicator.hpp
+    #src/communication_abstractions/fast_rtps_communicator.hpp
     src/communication_abstractions/resource_manager.cpp
     src/communication_abstractions/resource_manager.hpp
     src/experiment_execution/analyze_runner.cpp
@@ -146,9 +146,9 @@ rosidl_target_interfaces(${EXE_NAME} ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
     target_link_libraries(${EXE_NAME}
         ${Boost_LIBRARIES}
-        ${FastRTPS_LIBRARIES}
-        fast_rtps_idl
-        fastcdr
+        # ${FastRTPS_LIBRARIES}
+        # fast_rtps_idl
+        # fastcdr
         ${OPTIONAL_LIBRARIES})
 
 if(BUILD_TESTING)
