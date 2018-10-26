@@ -354,6 +354,29 @@ ExperimentConfiguration::RoundTripMode ExperimentConfiguration::roundtrip_mode()
   return m_roundtrip_mode;
 }
 
+std::string ExperimentConfiguration::pub_topic_postfix() const {
+  check_setup();
+  std::string fix;
+  if(m_roundtrip_mode == ExperimentConfiguration::RoundTripMode::MAIN) {
+    fix = "main";
+  }
+  else if(m_roundtrip_mode == ExperimentConfiguration::RoundTripMode::RELAY) {
+    fix = "relay";
+  }
+  return fix;
+}
+
+std::string ExperimentConfiguration::sub_topic_postfix() const {
+  check_setup();
+  std::string fix;
+  if(m_roundtrip_mode == ExperimentConfiguration::RoundTripMode::MAIN) {
+    fix = "relay";
+  }
+  else if(m_roundtrip_mode == ExperimentConfiguration::RoundTripMode::RELAY) {
+    fix = "main";
+  }
+  return fix;
+}
 
 boost::uuids::uuid ExperimentConfiguration::id() const
 {

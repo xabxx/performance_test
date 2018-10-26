@@ -113,6 +113,10 @@ public:
   bool is_with_security() const;
   /// \returns Returns the roundtrip mode.
   RoundTripMode roundtrip_mode() const;
+  /// \returns Returns the publishing topic postfix
+  std::string pub_topic_postfix() const;
+  /// \returns Returns the subscribing topic postfix
+  std::string sub_topic_postfix() const;
   /// \returns Returns the randomly generated unique ID of the experiment. This will throw if the
   /// experiment configuration is not set up.
   boost::uuids::uuid id() const;
